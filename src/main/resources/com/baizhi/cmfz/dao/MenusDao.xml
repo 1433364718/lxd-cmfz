@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper是dao接口的全限定名 -->
+<mapper namespace="com.baizhi.cmfz.dao.MenusDao">
+		<resultMap id="MenuMap" type="Menus">
+			<id property="id" column="pid" ></id>
+			<result property="title" column="ptitle"></result>
+			<result property="iconCls" column="piconcls"></result>
+			<collection property="menuList" ofType="Menus">
+				<id  property="id" column="id"></id>
+				<result property="title" column="title"></result>
+				<result property="iconCls" column="iconcls"></result>
+				<result property="parentId" column="parent_id"></result>
+				<result property="url" column="url"></result>
+			</collection>
+		</resultMap>
+	<select id="selectAll" resultMap="MenuMap">
+		select m1.id pid,m1.title ptitle,m1.iconcls piconcls,m2.* from cmfz_menus m1 left join cmfz_menus m2 on m1.id=m2.parent_id where m1.parent_id=0
+	</select>
+</mapper>
