@@ -36,7 +36,6 @@
     })
 
     function toJsp(menu){
-	    alert(menu)
         // 判断该页签是否存在
         var result = $("#tt").tabs("exists",menu);
         if(result){
