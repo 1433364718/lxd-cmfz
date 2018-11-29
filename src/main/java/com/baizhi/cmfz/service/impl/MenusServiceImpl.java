@@ -21,9 +21,7 @@ public class MenusServiceImpl implements MenusService {
     public Map selectAll() {
         Map map = new HashMap();
         map.put("menusList",menusDao.selectAll());
-        for (Menus o : menusDao.selectAll()) {
-            System.out.println(o);
-        }
+
         return map;
     }
 }

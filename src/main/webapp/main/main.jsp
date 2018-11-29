@@ -7,8 +7,10 @@
 <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">   
 <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">   
 <script type="text/javascript" src="../js/jquery.min.js"></script>   
-<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>  
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
+<script type="text/javascript" src="../js/datagrid-detailview.js"></script>
 <script type="text/javascript">
 	<!--菜单处理-->
     $(function(){
@@ -21,7 +23,7 @@
                     var title='';
                     for (var j=0;j<list.length;j++){
                         var menus = list[j];
-                        title+='<a href="javascript:void(0)" onclick="toJsp('+menus.title+')">'+menus.title+'</a></br>'
+                        title += "<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"toJsp('" + menus.title + "','" + menus.url + "','" + menus.iconCls + "')\" data-options=\"iconCls:'"+menusList[i].iconCls+"'\">" + menus.title + "</a></p>";
                     }
                     $('#aa').accordion('add', {
                         iconCls:menusList[i].iconCls,
@@ -35,20 +37,23 @@
         })
     })
 
-    function toJsp(menu){
+    function toJsp(title,url,incoCls){
         // 判断该页签是否存在
 
-        var result = $("#tt").tabs("exists",menu);
+        var result = $("#tt").tabs("exists",title);
         if(result){
             // 如果存在，展示该页签
-            $("#tt").tabs("select",menu);
+            $("#tt").tabs("select",title);
         }else{
             // 如果不存在，添加该页签
             $("#tt").tabs("add",{
-                title: menu,
+                title: title,
                 // 能不能被叉掉
                 closable:true,
-               content:'<iframe src="${pageContext.request.contextPath}/login.jsp" width="100%" height="100%"></iframe>',
+                selected:true,
+                href:"${pageContext.request.contextPath}/module/"+url,
+
+               //content:'<iframe src="${pageContext.request.contextPath}/login.jsp" width="100%" height="100%"></iframe>',
             })
         }
 
