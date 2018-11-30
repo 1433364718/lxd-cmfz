@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper是dao接口的全限定名 -->
+<mapper namespace="com.baizhi.cmfz.dao.AlbumDao">
+	<resultMap id="albumMap" type="album">
+		<id property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="coverImg" column="coverImg"/>
+		<result property="count" column="count"/>
+		<result property="score" column="score"/>
+		<result property="author" column="author"/>
+		<result property="broadcast" column="broadcast"/>
+		<result property="brief" column="brief"/>
+		<result property="publishDate" column="publishDate"/>
+		<collection property="children" ofType="chapter">
+			<id property="id" column="id1"/>
+			<result property="title" column="title1"/>
+			<result property="size" column="size"/>
+			<result property="duration" column="duration"/>
+			<result property="downPath" column="downpath"/>
+			<result property="uploadDate" column="uploadDate"/>
+			<result property="aid" column="aid"/>
+		</collection>
+	</resultMap>
+
+	<select id="show" resultMap="albumMap">
+		select a.*,b.id id1,b.title title1,b.size,b.duration,b.downPath,b.uploadDate,b.aid
+		from cmfz_album a left join  cmfz_chapter b on a.id=b.aid
+	</select>
+	<select id="getCount" resultType="int">
+		select count(*) from  cmfz_album
+	</select>
+
+	<insert id="add">
+		insert into  cmfz_album values (0,#{title},#{coverImg},0,#{score},#{author},#{broadcast},#{brief},#{publishDate})
+	</insert>
+</mapper>

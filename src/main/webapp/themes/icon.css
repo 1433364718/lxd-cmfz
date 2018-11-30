@@ -55,6 +55,9 @@
 .icon-tip{
 	background:url('icons/tip.png') no-repeat center center;
 }
+.icon-filesave{
+	background:url('icons/filesave.png') no-repeat center center;
+}
 .icon-filter{
 	background:url('icons/filter.png') no-repeat center center;
 }

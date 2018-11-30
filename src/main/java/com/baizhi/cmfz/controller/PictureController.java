@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -69,7 +70,16 @@ public class PictureController {
     }
 
     @RequestMapping("/delete")
-    public @ResponseBody boolean delete(int id){
+    public @ResponseBody boolean delete(int id,String url,HttpServletRequest req){
+        System.out.println(url);
+        //先删除图片
+        //1.获取文件夹的相对路径
+        String realPath = req.getSession().getServletContext().getRealPath("/img");
+        // 获取要删除的轮播图图片文件
+        File file = new File(realPath+"/"+url);
+        // 删除
+        file.delete();
+
         try {
             pictureService.delete(id);
             return true;

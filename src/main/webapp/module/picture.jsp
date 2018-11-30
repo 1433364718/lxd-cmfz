@@ -102,7 +102,7 @@
                         }else {
                             $.ajax({
                                 url:"${pageContext.request.contextPath}/picture/delete",
-                                data:"id="+row.id,
+                                data:"id="+row.id+"&url="+row.url,
                                 success:function (data) {
                                     if(data){
                                         $("#dg").edatagrid("reload");
